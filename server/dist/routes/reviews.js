@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const reviewController_1 = require("../controllers/reviewController");
+const auth_1 = require("../middleware/auth");
+const router = (0, express_1.Router)();
+router.get('/listing/:listingId', reviewController_1.getListingReviews);
+router.get('/provider/:providerId', reviewController_1.getProviderReviews);
+router.post('/', auth_1.authenticate, reviewController_1.createReview);
+router.put('/:id/moderate', auth_1.authenticate, (0, auth_1.authorize)('admin'), reviewController_1.moderateReview);
+exports.default = router;

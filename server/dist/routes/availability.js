@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const availabilityController_1 = require("../controllers/availabilityController");
+const auth_1 = require("../middleware/auth");
+const router = (0, express_1.Router)();
+router.get('/provider/:providerId', availabilityController_1.getProviderAvailability);
+router.get('/my/slots', auth_1.authenticate, availabilityController_1.getMyAvailability);
+router.post('/', auth_1.authenticate, availabilityController_1.addAvailabilitySlot);
+router.delete('/:id', auth_1.authenticate, availabilityController_1.deleteAvailabilitySlot);
+exports.default = router;
